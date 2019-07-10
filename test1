@@ -1,0 +1,104 @@
+#include<iostream>
+using namespace std;
+class Vehicle
+{
+protected:
+	int Maxspeed;
+	int Weight;
+public:
+	Vehicle(int m,int w)
+	{
+		Maxspeed=m;
+		Weight=w;
+		cout<<"Constructing Vehicle...\n";
+	}
+	~Vehicle()
+	{
+		cout<<"Destructing Vehicle...\n";
+	}
+	void Run()
+	{
+		cout<<"The vehicle is running!\n";
+	}
+	void Stop()
+	{
+		cout<<"Please stop running!\n";
+	}
+	virtual void Show()
+	{
+		cout<<"It's maxspeed is:"<<Maxspeed<<endl;
+		cout<<"It's weight is:"<<Weight<<endl;
+	}
+};
+class Bicycle:virtual public Vehicle
+{
+protected:
+	int Height;
+public:
+	Bicycle(int m,int w,int h):Vehicle(m,w)
+	{
+		Height=h;
+		cout<<"Constructing Bicycle...\n";
+	}
+	~Bicycle()
+	{
+		cout<<"Destructing Bicycle...\n";
+	}
+	void Show()
+	{
+		Vehicle::Show();
+		cout<<"It's height is:"<<Bicycle::Height<<endl;
+	}
+};
+class Car:virtual public Vehicle
+{
+protected:
+	int Seatnum;
+public:
+	Car(int m,int w,int s):Vehicle(m,w)
+	{
+		Seatnum=s;
+		cout<<"Constructing Car...\n";
+	}
+	~Car()
+	{
+		cout<<"Destructing Car...\n";
+	}
+	void Show()
+	{
+		Vehicle::Show();
+		cout<<"It's seatnum is:"<<Car::Seatnum<<endl;
+	}
+};
+class MotorCycle:public Car,public Bicycle
+{
+public:
+	MotorCycle(int m,int w,int h,int s):Vehicle(m,w),Bicycle(m,w,h),Car(m,w,s)
+	{
+		Seatnum=s;
+		cout<<"Constructing MotorCycle...\n";
+	}
+	~MotorCycle()
+	{
+		cout<<"Destructing MotorCycle...\n";
+	}
+	void Show()
+	{
+		cout<<"It's maxspeed is:"<<Maxspeed<<endl;
+		cout<<"It's weight is:"<<Weight<<endl;
+		cout<<"It's height is:"<<Height<<endl;
+		cout<<"It's seatnum is:"<<Seatnum<<endl;
+	}
+};
+int main()
+{
+	MotorCycle mc(100,99,98,97);
+	mc.Run();
+	mc.Stop();
+	mc.Show();
+	Car c(97,96,95);
+	c.Run();
+	c.Stop();
+	c.Show();
+	return 0;
+}
